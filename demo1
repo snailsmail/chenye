@@ -1,0 +1,128 @@
+$(function() {
+
+  var InfoModel = Backbone.Model.extend({
+		defaults:function(){
+    	return{
+      	aname:null,
+        bname:null,
+        cname:null
+      };
+    }
+  });
+
+  var InfoList = Backbone.Collection.extend({
+    model: InfoModel
+  });
+
+  var InfoView = Backbone.View.extend({
+    tagName: "tr",
+    template: _.template($("#item-template").html()),
+    initialize: function() {
+      this.listenTo(this.model, 'destroy', this.remove);
+    },
+    render: function() {
+      this.$el.html(this.template({aname:'a',bname:'b',cname:'c'}));
+      return this;
+    },
+    events: {
+      "click .del": "deleteModel"
+    },
+    deleteModel: function() {
+      this.model.destroy();
+    }
+  });
+
+  var AppInfoView = Backbone.View.extend({
+    events: {
+      "click .add": "addModel"
+    },
+    initialize: function() {
+      var infoModel = new InfoModel();
+      var infoView = new InfoView({
+        model: infoModel
+      });
+      this.$el.find("tbody").append(infoView.render().el);
+    },
+    addModel: function() {
+      var infoModel = new InfoModel();
+      var infoView = new InfoView({
+        model: infoModel
+      });
+      this.$el.find("tbody").append(infoView.render().el);
+    }
+  });
+
+  var start = new AppInfoView({
+    el: "#main"
+  });
+
+});
+
+
+
+$(function() {
+
+  var InfoModel = Backbone.Model.extend({
+		defaults:function(){
+    	return{
+      	aname:null,
+        bname:null,
+        cname:null
+      };
+    }
+  });
+
+  var InfoList = Backbone.Collection.extend({
+    model: InfoModel
+  });
+
+  var InfoView = Backbone.View.extend({
+    tagName: "tr",
+    template: _.template($("#item-template").html()),
+    initialize: function() {
+      this.listenTo(this.model, 'destroy', this.remove);
+    },
+    render: function() {
+      this.$el.html(this.template(this.model.toJSON()));
+      this.$aname = this.$el.find(".first");
+      this.$bname = this.$el.find("second");
+      this.$cname = this.$el.find("thrid");
+      return this;
+    },
+    events: {
+      "click .del": "deleteModel"
+    },
+    deleteModel: function() {
+      this.model.destroy();
+    }
+  });
+
+  var AppInfoView = Backbone.View.extend({
+    events: {
+      "click .add": "addModel"
+    },
+    initialize: function() {
+      var infoModel = new InfoModel();
+      infoModel.set('aname','a');
+      infoModel.set('bname','b');
+      infoModel.set('cname','c');
+      var infoView = new InfoView({
+        model: infoModel
+      });
+      this.$el.find("tbody").append(infoView.render().el);
+    },
+    addModel: function() {
+      var infoModel = new InfoModel();
+      var infoView = new InfoView({
+        model: infoModel
+      });
+      this.$el.find("tbody").append(infoView.render().el);
+    }
+  });
+
+  var start = new AppInfoView({
+    el: "#main"
+  });
+});
+
+
