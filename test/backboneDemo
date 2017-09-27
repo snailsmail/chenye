@@ -1,7 +1,7 @@
 $(function() {
 
   var InfoModel = Backbone.Model.extend({
-		defaults:function(){
+      defaults:function(){
     	return{
       	aname:null,
         bname:null,
@@ -58,12 +58,12 @@ $(function() {
 
 });
 
-
+#############################################################################
 
 $(function() {
 
   var InfoModel = Backbone.Model.extend({
-		defaults:function(){
+      defaults:function(){
     	return{
       	aname:null,
         bname:null,
