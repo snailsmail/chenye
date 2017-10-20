@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+  <Environment name="spring.config.location" value="/home/chenye/eams5.0.x/application.properties" type="java.lang.String"/>
+</Context>
