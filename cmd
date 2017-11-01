@@ -49,6 +49,18 @@ sudo apt-get install shadowsocks-qt5
 ssh xx@192.168.1.xxx
 //从别人电脑上传东西
  scp xx@192.168.1.xxx:~/xxx ~/xx/
+
+//eams-ui地址
+http://192.168.1.249/eams-ui/
+
+_gh_pages/index.html是项目的第一个页面
+
+1.html5shiv
+html5shiv可以通过很简单的JS调用，让IE6-IE9浏览器都支持HTML5中的元素
+2.respond.js
+HTML5 respond.js 解决IE6~8的响应式布局问题(自适应@media)
+3.semi-auto-table
+默认使用的是dataTable(属性userDataTable)
 ######################################################################
 
 //安装redis
@@ -99,8 +111,36 @@ dpkg --get-selections | grep linux（查看安装的旧的内核）
 
 free -m （查看内存使用情况）
 
+/etc/fstab 存放系统挂载信息
+amount -a 修改/etc/fstab文件让它立即执行
+
+安装gparted调整linux分区大小
+sudo apt-get install gparted
+
 进程查询
 ps -ef | grep java
+
+内核版本
+uname -r
+
+查看系统信息
+cat /etc/lsb-release
+
+######################################################################
+oracle 11g xe
+刚装上登不进去sqlplus：
+sqlplus
+as sysdba
+sys
+***(安装过程中的密码)
+
+登录进去后：
+shutdown
+startup
+
+然后可以创建新用户密码了
+create user ** identified by **;
+grant dba to **;
 
 ######################################################################
 
@@ -149,7 +189,7 @@ sudo apt upgrade
 2 sudo npm install -g grunt-cli      //安装grunt , 全局安装
 
 3 bower -v                           //查看版本号
-4 grunt -v       		     //查看版本号
+4 grunt --version      		     //查看版本号
 
 //全局安装/本地安装
 　　全局安装：将模块安装在/usr/local/lib/node_modules/下
@@ -366,6 +406,32 @@ document.ready = function (callback) {
             }
         }
 ####################################################
+//jQuery获取Select选择的Text和Value:
+
+$("#select_id").change(function(){//code...});   //为Select添加事件，当选择其中一项时触发
+var checkText=$("#select_id").find("option:selected").text();  //获取Select选择的Text
+var checkValue=$("#select_id").val();  //获取Select选择的Value
+var checkIndex=$("#select_id ").get(0).selectedIndex;  //获取Select选择的索引值
+var maxIndex=$("#select_id option:last").attr("index");  //获取Select最大的索引值 
+
+//jQuery设置Select选择的Text和Value:
+
+$("#select_id ").get(0).selectedIndex=1;  //设置Select索引值为1的项选中
+$("#select_id ").val(4);   //设置Select的Value值为4的项选中
+$("#select_id option").attr("selected", true);   //设置Select的Text值为jQuery的项选中
+
+//jQuery添加/删除Select的Option项：
+
+$("#select_id").append("<option value='Value'>Text</option>");  //为Select追加一个Option(下拉项)
+$("#select_id").prepend("<option value='0'>请选择</option>");  //为Select插入一个Option(第一个位置)
+$("#select_id option:last").remove();  //删除Select中索引值最大Option(最后一个)
+$("#select_id option[index='0']").remove();  //删除Select中索引值为0的Option(第一个)
+$("#select_id option[value='3']").remove();  //删除Select中Value='3'的Option
+$("#select_id option[text='4']").remove();  //删除Select中Text='4'的Option
+
+//jquery获取某$对象的最后一个
+1.$(".box:last")
+2.$(".box").eq(-1)
 ####################################################
 ####################################################
 ####################################################
