@@ -156,6 +156,15 @@ SELECT sysdate from dual;
 //启动数据库
 sudo service oracle-xe start
 
+//查看表结构
+select dbms_metadata.get_ddl('TABLE', 'LESSON_SURVEY_ANSWER') FROM dual;
+
+//创建序列
+CREATE SEQUENCE SEQ_LESSON_SURVEY_TASK;
+
+//查询序列
+select SEQ_LESSON_SURVEY_TASK.nextval from dual
+
 ######################################################################
 
 //进入ubuntu图形界面失败
@@ -199,6 +208,16 @@ sudo apt upgrade
 1 sudo npm uninstall moduleName      //卸载本地安装的模块
 2 sudo npm uninstall -g moduleName   //卸载全局安装的模块   
 npm update -g npm(更新npm)
+
+######################################################################
+grunt常用插件
+1.合并文件：grunt-contrib-concat
+2.语法检查：grunt-contrib-jshint
+3.Scss编译：grunt-contrib-sass
+4.压缩文件：grunt-contrib-uglify
+5.监听文件变动：grunt-contrib-watch
+6.建立本地服务器：grunt-contrib-connect
+
 ######################################################################
 
 sudo apt install jekyll
@@ -362,6 +381,10 @@ sudo ln -s /opt/WebStorm-172.3544.10/ /opt/WebStorm
 
 /opt/WebStorm/bin/webstorm.sh
 
+激活码
+2017.2.27更新
+选择“license server” 输入：http://idea.imsxm.com/
+
 ####################################################
 oracle日期处理
 to_date('2017-09-09', 'yyyy-MM-dd hh24:mi:ss')
@@ -433,7 +456,12 @@ $("#select_id option[text='4']").remove();  //删除Select中Text='4'的Option
 1.$(".box:last")
 2.$(".box").eq(-1)
 ####################################################
+设置desktop（以idea为例）
+idea的启动文件在idea文件夹下的bin/idea.sh,点击运行
+一般的desktop文件在/usr/share/applications/下
+
 ####################################################
+grunt
 ####################################################
 ####################################################
 ####################################################
