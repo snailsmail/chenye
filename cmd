@@ -37,6 +37,18 @@ git config --global user.name "Your Name"
 git config --global user.email "email@example.com"
 git config --global alias.st status
 git config --global core.quotepath false(乱码问题)
+
+删除远程tag: 
+    git push origin :v1.1   
+    //也可以这样  
+    git push origin --delete tag V1.1 
+删除本地tag: 
+	git tag -d v1.1
+打tag
+git tag -a v1.1 -m "注释"  
+git push origin v1.1  
+//查看所有tag  
+git tag -l 
 ######################################################################
 
 //安装shadowsocks
@@ -55,12 +67,6 @@ http://192.168.1.249/eams-ui/
 
 _gh_pages/index.html是项目的第一个页面
 
-1.html5shiv
-html5shiv可以通过很简单的JS调用，让IE6-IE9浏览器都支持HTML5中的元素
-2.respond.js
-HTML5 respond.js 解决IE6~8的响应式布局问题(自适应@media)
-3.semi-auto-table
-默认使用的是dataTable(属性userDataTable)
 ######################################################################
 
 //安装redis
@@ -165,6 +171,8 @@ CREATE SEQUENCE SEQ_LESSON_SURVEY_TASK;
 //查询序列
 select SEQ_LESSON_SURVEY_TASK.nextval from dual
 
+oracle日期处理
+to_date('2017-09-09', 'yyyy-MM-dd hh24:mi:ss')
 ######################################################################
 
 //进入ubuntu图形界面失败
@@ -210,46 +218,26 @@ sudo apt upgrade
 npm update -g npm(更新npm)
 
 ######################################################################
-grunt常用插件
-1.合并文件：grunt-contrib-concat
-2.语法检查：grunt-contrib-jshint
-3.Scss编译：grunt-contrib-sass
-4.压缩文件：grunt-contrib-uglify
-5.监听文件变动：grunt-contrib-watch
-6.建立本地服务器：grunt-contrib-connect
+
+淘宝NPM镜像（npm下载在国外服务器，速度过慢，选择淘宝NPM镜像提高速度）
+ npm install -g cnpm --registry=https://registry.npm.taobao.org
+安装模块直接 cnpm install [name] 命令
+查询版本: cnpm -v 
+
+######################################################################
+
+使用cnpm安装vue-cli 和 webpack
+cnpm install -g vue-cli
+sudo ln -s ~/Tools/node-v6.11.2-linux-x64/bin/vue /usr/local/bin/vue
+查询版本: vue -V(注意V大写)
+若无法识别‘vue’，可能时npm版本过低，执行npm install -g npm 更新版本
+cnpm install -g webpack
+sudo ln -s ~/Tools/node-v6.11.2-linux-x64/bin/webpack /usr/local/bin/webpack
+查询版本: webpack -v
 
 ######################################################################
 
 sudo apt install jekyll
-######################################################################
-Bower 是 twitter 推出的一款包管理工具，基于nodejs的模块化思想，把功能分散到各个模块中，让模块和模块之间存在联系，通过 Bower 来管理模块间的这种联系。
-bower.js 中
-2.2.1 匹配确切版本
->2.1 必须大于此版本
->=2.2 大于等于此版本
-<2.2 小于此版本
-<=2.2 小于等于此版本
-~1.2.3 接近此版本，例如：1.2.3-0，1.3.0-0
-1.2.x x代表任意数字，1.2.0, 1.2.1等，但不能是1.3.0
-* 任意版本
-"" 空字符串相当于 *
-1.2-2.2 指定版本范围.
-1.2-2.2 || 3.2-3.5 两个版本范围中任选一个
-"~1.2.0" ：使用~的意思是“约等于”这个版本，说的具体点，就是“>=1.2.0 && <1.3.0”版本。~会在develop version这个版本号上向上兼容，所以使用~，相当于向上兼容同一个release version.
-
-"^1.12.0" ：和~有点像，但是使用^的意思是“兼容”这个版本的意思，就是">=1.12.0 && <2.0.0"版本。^会在release version版本号上向上兼容，也就是说向上兼容同一个major version.
-
-"1.1.x" ：它的作用有点像~，但是它并不要求向上兼容，意思是">=1.1.0 && <1.2.0"，吃通整个release version。
-
-"1.x"：同样的道理，它的作用类似^，但是吃通整个major version，也就是">=1.0.0 && < 2.0.0".
-
-
-######################################################################
-
-//禁用右键菜单
- $(document).bind("contextmenu",function(e){
-   return false;
- });
 ######################################################################
 
 git log -g
@@ -259,109 +247,9 @@ git checkout -b bugfix/cy-grade-04 94ce435759233ab41f9fecdf7fbfe36fc39e0f88
 git reset --hard  commit-id2
 git push origin HEAD --force
 
+//删除远程分支
+git push origin :feature/cy01
 ######################################################################
-angular2-quickstart 
-git clone https://github.com/angular/quickstart.git quickstart
-cd quickstart
-npm install
-npm start
-####################################################################################################################
-angular应用程序是由组件组成：一个组价是一个组合，由一个HTML模板和一个组件类（控制一部分屏幕）组成
-app/app.component.ts
-
-	import { Component } from '@angular/core';
-	@Component({
-		selector: 'my-app',
-		template: '<h1>Hello {{name}} </h1>'
-	})
-	export class AppComponent { name = 'Angular'; }
-####################################################################################################################
-写一个Angular 2的应用最基本的步骤概括为三步：写root组件，启动它（Boostrap），写index.html。
-1.一些关于命名空间的基本知识
-把所有代码放入一个立即调用的函数中，通过传入一个空对象app，实现对命名空间的隔离，避免了
-污染全局命名空间。
-//app.component.js
-(function(app) {
-	app.AppComponent = 
-	ng.core.Component({
-		selector: '#my-app',
-		template: "<h1>My First Angular 2 App</h1>"
-	})
-	.Class({
-		constructor: function () {}
-	});
-})(window.app || (window.app = {}));
-将要导出的内容添加到app命名空间内，比如我们通过app.AppComponent=...,来将AppComponent导出，
-其他文件通过app对象来使用。
-一个组件控制一个视图，严格意义上组件就是class。
-它使用NG的core命名空间中的Component方法和Class方法定义。
-Component方法：接收一个具有两个属性的对象作为配置参数，selector是选择器（同jQuery选择器），template是渲染视图的内容（html）。
-
-Class方法：接收一个对象，用于实现component，通过给它属性和方法来绑定到视图，定义它的行为（constructor属性是一个函数，用于定义这些行为？）
-
-//boot.js
-(function  (app) {
-  document.addEventListener('DOMContentLoaded',function() {
-    // 页面文档完全加载并解析完毕之后，调用bootstrap方法，传入根组件AppComponent来启动它
-    ng.platform.browser.bootstrap(app.AppComponent);
-  });
-})(window.app || (window.app = {}));
-
-页面文档完全加载并解析完毕之后，会触发DOMContentLoaded事件，HTML文档不会等待样式文件、图片文件、子框架页面的加载(load事件可以用来检测HTML页面是否完全加载完毕(fully-loaded))。
-
-//index.html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Angular 2</title>
-    <!-- IE required polyfill -->
-    <script src="node_modules/es6-shim/es6-shim.min.js"></script>
-
-    <!-- Angular所需的lib -->
-    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
-    <script src="node_modules/rxjs/bundles/Rx.umd.js"></script>
-    <script src="node_modules/angular2/bundles/angular2-all.umd.js"></script>
-
-    <!-- 自己编写的模块 -->
-    <script src='app/app.component.js'></script>
-    <script src='app/boot.js'></script>
-</head>
-<body>
-    <!-- Angular需要通过selector找到的视图 -->
-    <div id="my-app">Loading...</div>
-</body>
-</html>
-
-需要注意的是boot.js要放在app.component.js之后，当Angular调用boot.js的启动程序，它读取AppComponent组件，找到“my-app”选择器，定位到一个id为“my-app”的元素，将template的内容加载到元素里面。
-
- 
-
-使用npm start来启动程序，在package.json的配置中实际上将npm start命令映射到了启动lite-server服务，它可以监控文件改动，实现自动刷新。
-
-//package.json
-{
-  "name": "angular2-quickstart",
-  "version": "1.0.0",
-  "scripts": {
-    "start": "npm run lite",
-    "lite": "lite-server"
-  },
-  "license": "ISC",
-  "dependencies": {
-    "angular2": "2.0.0-beta.0",
-    "systemjs": "0.19.6",
-    "es6-promise": "^3.0.2",
-    "es6-shim": "^0.33.3",
-    "reflect-metadata": "0.1.2",
-    "rxjs": "5.0.0-beta.0",
-    "zone.js": "0.5.10"
-  },
-  "devDependencies": {
-    "lite-server": "^1.3.1"
-  }
-}
-////////////////////////////////////////////////////////////
 安装webstorm
 1.在官网地址:http://www.jetbrains.com/webstorm/　下载webstorm
 2.
@@ -386,9 +274,6 @@ sudo ln -s /opt/WebStorm-172.3544.10/ /opt/WebStorm
 选择“license server” 输入：http://idea.imsxm.com/
 
 ####################################################
-oracle日期处理
-to_date('2017-09-09', 'yyyy-MM-dd hh24:mi:ss')
-####################################################
 IDEA注册码地址
 http://idea.lanyus.com/
 ####################################################
@@ -403,65 +288,32 @@ eams-bootstrap-ui项目
 ３．grunt dist docs
 ４．(jektll build)jekyll serve
 ####################################################
-在Jquery里面，我们可以看到两种写法:$(function(){}) 和$(document).ready(function(){})
-这两个方法的效果都是一样的，都是在dom文档树加载完之后执行一个函数（注意，这里面的文档树加载完不代表全部文件加载完）。
-
-而window.onload是在dom文档树加载完和所有文件加载完之后执行一个函数。也就是说$(document).ready要比window.onload先执行。
-document.ready = function (callback) {
-            ///兼容FF,Google
-            if (document.addEventListener) {
-                document.addEventListener('DOMContentLoaded', function () {
-                    document.removeEventListener('DOMContentLoaded', arguments.callee, false);
-                    callback();
-                }, false)
-            }
-             //兼容IE
-            else if (document.attachEvent) {
-                document.attachEvent('onreadystatechange', function () {
-                      if (document.readyState == "complete") {
-                                document.detachEvent("onreadystatechange", arguments.callee);
-                                callback();
-                       }
-                })
-            }
-            else if (document.lastChild == document.body) {
-                callback();
-            }
-        }
-####################################################
-//jQuery获取Select选择的Text和Value:
-
-$("#select_id").change(function(){//code...});   //为Select添加事件，当选择其中一项时触发
-var checkText=$("#select_id").find("option:selected").text();  //获取Select选择的Text
-var checkValue=$("#select_id").val();  //获取Select选择的Value
-var checkIndex=$("#select_id ").get(0).selectedIndex;  //获取Select选择的索引值
-var maxIndex=$("#select_id option:last").attr("index");  //获取Select最大的索引值 
-
-//jQuery设置Select选择的Text和Value:
-
-$("#select_id ").get(0).selectedIndex=1;  //设置Select索引值为1的项选中
-$("#select_id ").val(4);   //设置Select的Value值为4的项选中
-$("#select_id option").attr("selected", true);   //设置Select的Text值为jQuery的项选中
-
-//jQuery添加/删除Select的Option项：
-
-$("#select_id").append("<option value='Value'>Text</option>");  //为Select追加一个Option(下拉项)
-$("#select_id").prepend("<option value='0'>请选择</option>");  //为Select插入一个Option(第一个位置)
-$("#select_id option:last").remove();  //删除Select中索引值最大Option(最后一个)
-$("#select_id option[index='0']").remove();  //删除Select中索引值为0的Option(第一个)
-$("#select_id option[value='3']").remove();  //删除Select中Value='3'的Option
-$("#select_id option[text='4']").remove();  //删除Select中Text='4'的Option
-
-//jquery获取某$对象的最后一个
-1.$(".box:last")
-2.$(".box").eq(-1)
-####################################################
 设置desktop（以idea为例）
 idea的启动文件在idea文件夹下的bin/idea.sh,点击运行
 一般的desktop文件在/usr/share/applications/下
 
 ####################################################
-grunt
+安装qq
+1.安装wine
+wget https://dl.winehq.org/wine-builds/Release.key
+sudo apt-key add Release.key
+sudo apt-add-repository 'https://dl.winehq.org/wine-builds/ubuntu/'
+sudo apt-get update
+sudo apt-get install winehq-devel
+
+2.下载安装包 
+链接: https://pan.baidu.com/s/1nu8UXiL 密码: s7ps
+tar xvf wineQQ8.9_19990.tar.xz -C ~/
+
+卸载qq的方法：
+
+rm -rf ~/.wine
+
+rm -rf ~/.local/share/applications/wine-QQ.desktop
+
+rm -rf ~/.local/share/icons/hicolor/256x256/apps/QQ.png
+
+rm -rf ~/.fonts/simsun.ttc
 ####################################################
 ####################################################
 ####################################################
