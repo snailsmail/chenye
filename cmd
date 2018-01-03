@@ -37,6 +37,10 @@ git config --global user.name "Your Name"
 git config --global user.email "email@example.com"
 git config --global alias.st status
 git config --global core.quotepath false(乱码问题)
+git config --global credential.helper store（解决每次提交都要输入用户名密码问题）
+
+这些命令会在～/.gitconfig文件下生成相应的设置
+
 
 删除远程tag: 
     git push origin :v1.1   
