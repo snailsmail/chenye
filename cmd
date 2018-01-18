@@ -6,6 +6,12 @@ ssh-keygen(安装ssh公钥)（cd .ssh/）
 //ubuntu 文件权限(chown chmod)
 http://zhaoyuqiang.blog.51cto.com/6328846/1214718
 
+使用命令chomd改变文件的读写权限
+chomd 777 **.**(给某文件赋读写权限)
+
+使用命令chown改变目录或文件的所有权
+chown chenye:chenye **.**(修改某文件的所有权和所属权)
+
 ######################################################################
 
 //安装jdk
@@ -153,12 +159,24 @@ create user ** identified by **;
 grant dba to **;
 
 ######################################################################
-
+dmp文件的导出和导入
 //数据库数据的导出
 exp eams_500_hf_test/1@192.168.1.250:1521/orcl file=~/Tools/oracle.dmp full=y
-
 //数据库数据导入
 imp xxx/xxx:orcl file=~/Tools/oracle.dmp fromuser=eams_500_hf_test touser=chenye
+
+dpdmp文件的导出和导入
+1）.数据泵工具导出的步骤：
+	1.创建directory
+		create directory eams_dir as '/home/chenye';
+	2.授权
+		grant read,write on directory eams_dir to chenye_180109;
+	--查看目录及权限
+		select privilege, directory_name, derectory_path from user_tab_privs t, all_directories d where t.table_name(+)=d.directory_name order by 2,1;
+	3.执行导出
+		expdp chenye/123456@xe schemas=chenye directory=eams_dir dumpflie=expdp_eams.dpdmp logfile=expdp_eams.dplog full=y;
+	4.执行导入
+		impdp chenye_180109/123456@xe directory=eams_dir dumpfile=expdp_eams.dpdmp logfile=expdp_eams.dplog remap_schemas=chenye:chenye_180109
 
 //数据库查看系统时间
 SELECT sysdate from dual;
@@ -177,6 +195,35 @@ select SEQ_LESSON_SURVEY_TASK.nextval from dual
 
 oracle日期处理
 to_date('2017-09-09', 'yyyy-MM-dd hh24:mi:ss')
+
+//impdp时报错ORA-39083&ORA-01917
+impdp 加个选型： exclude=grant
+
+/*分为四步 */
+/*第1步：创建临时表空间  */
+create temporary tablespace user_temp  
+tempfile '~\user_temp.dbf' 
+size 50m  
+autoextend on  
+next 50m maxsize 20480m  
+extent management local;  
+ 
+/*第2步：创建数据表空间  */
+create tablespace user_data  
+logging  
+datafile '~\user_data.dbf' 
+size 50m  
+autoextend on  
+next 50m maxsize 20480m  
+extent management local;  
+ 
+/*第3步：创建用户并指定表空间  */
+create user username identified by password  
+default tablespace user_data  
+temporary tablespace user_temp;  
+ 
+/*第4步：给用户授予权限  */
+grant connect,resource,dba to username;
 ######################################################################
 
 //进入ubuntu图形界面失败
