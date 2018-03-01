@@ -366,6 +366,20 @@ rm -rf ~/.local/share/icons/hicolor/256x256/apps/QQ.png
 
 rm -rf ~/.fonts/simsun.ttc
 ####################################################
+
+tomcat部署项目
+1.将项目的war包放在tomcat的webapps文件夹中
+2.在conf/Calalina/localhost/文件夹下放入项目相关的xml文件，xml文件的文件名要与放在webapps下的war文件名相同
+3.xml文件内容是指向项目需要的.properties文件路径
+4.conf文件夹下的server.xml文件中可以修改启动项目的端口号等信息
+
+启动项目时：
+在tomcat的bin文件夹下输入命令 ./startup.sh
+打印输出的日志 tail -f calalina.out
+关掉项目:
+在tomcat的bin文件夹下输入命令 ./shutdown.sh
+
+
 ####################################################
 ####################################################
 ####################################################
