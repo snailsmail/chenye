@@ -374,13 +374,26 @@ tomcat部署项目
 4.conf文件夹下的server.xml文件中可以修改启动项目的端口号等信息
 
 启动项目时：
-在tomcat的bin文件夹下输入命令 ./startup.sh
-打印输出的日志 tail -f calalina.out
+在tomcat的bin文件夹下输入命令 startup.sh
+打印输出的日志,在logs文件夹下 tail -f calalina.out
+可以直接在tomcat文件夹下输入命令
+	bin/startup.sh ;tail -f logs/catalina.out
+
 关掉项目:
-在tomcat的bin文件夹下输入命令 ./shutdown.sh
+在tomcat的bin文件夹下输入命令 shutdown.sh
 
 
 ####################################################
+
+安装notepadqq方法:
+    sudo add-apt-repository ppa:notepadqq-team/notepadqq  
+    sudo apt-get update  
+    sudo apt-get install notepadqq  
+
+卸载notepadqq方法:
+    sudo apt-get remove notepadqq  
+    sudo add-apt-repository --remove ppa:notepadqq-team/notepadqq  
+
 ####################################################
 ####################################################
 ####################################################
