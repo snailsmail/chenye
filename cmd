@@ -395,6 +395,14 @@ tomcat部署项目
     sudo add-apt-repository --remove ppa:notepadqq-team/notepadqq  
 
 ####################################################
+
+oracle的一些操作
+添加字段： alter table tableName add (字段名 字段类型 默认值 是否为空)
+修改字段： alter table tableName modify (字段名 字段类型 默认值 是否为空)
+删除字段： alter table tableName drop column 字段名
+字段重命名： alter table tableName rename column 列名 to 新列名
+表的重命名： alter table tableName rename to 新列名
+
 ####################################################
 ####################################################
 ####################################################
