@@ -268,6 +268,29 @@ sudo apt upgrade
 2 sudo npm uninstall -g moduleName   //卸载全局安装的模块   
 npm update -g npm(更新npm)
 
+
+//升级node版本
+第一步，先查看本机node.js版本：
+
+    $ node -v
+
+第二步，清除node.js的cache：
+
+    $ sudo npm cache clean -f
+
+第三步，安装 n 工具，这个工具是专门用来管理node.js版本的，别怀疑这个工具的名字，是他是他就是他，他的名字就是 “n”
+
+    $ sudo npm install -g n
+   （安装后进行软链接，目前这样安装不是全局的）
+    sudo ln -s ~/Tools/node-v6.11.2-linux-x64/bin/npm /usr/local/bin/npm      //软连接node
+
+第四步，安装最新版本的node.js
+
+    $ sudo n stable
+
+第五步，再次查看本机的node.js版本：
+
+    $ node -v
 ######################################################################
 
 淘宝NPM镜像（npm下载在国外服务器，速度过慢，选择淘宝NPM镜像提高速度）
@@ -402,6 +425,8 @@ oracle的一些操作
 删除字段： alter table tableName drop column 字段名
 字段重命名： alter table tableName rename column 列名 to 新列名
 表的重命名： alter table tableName rename to 新列名
+
+将varchar2改为clob,先要将数据清空，再把字段先改为long类型再改为clob类型
 
 ####################################################
 ####################################################
