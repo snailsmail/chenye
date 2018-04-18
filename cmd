@@ -429,6 +429,59 @@ oracle的一些操作
 将varchar2改为clob,先要将数据清空，再把字段先改为long类型再改为clob类型
 
 ####################################################
+
+postman 是一个 HTTP 通信测试工具，REST API 的练习会用到它。
+
+（1）下载
+
+     Postman下载地址：https://www.getpostman.com/
+
+（2）解压安装
+
+    sudo tar -xzf Postman-linux-x64-5.5.3.tar.gz
+
+    此时，在当前目录出现一个Postman文件夹。
+
+    启动Postman
+
+    ./Postman/Postman
+
+（3）创建启动图标
+
+    每次进入Postman目录很不方便，可以创建一个启动项。
+
+     1.建立软链接
+
+       sudo ln -s  /home/chenye/hdd/Postman/Postman   /usr/local/bin/postman    (前面地址为安装目录，后面软链接地址)
+
+    2.创建启动项文件
+
+      sudo vim  /usr/share/applications/postman.desktop
+
+      写入：
+
+      [Desktop Entry]
+
+      Encoding=UTF-8
+
+      Name=Postman
+
+      Exec=/usr/local/bin/postman
+
+      Icon=/home/chenye/hdd/Postman/resources/app/assets/icon.png
+
+      Terminal=false
+
+      Type=Application
+
+      Categories=Development;
+
+ 在dash里就可以搜索到Postman。
+
+
+
+
+
 ####################################################
 ####################################################
 ####################################################
