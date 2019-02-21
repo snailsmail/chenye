@@ -1,6 +1,7 @@
 
 1.html5shiv
 html5shiv可以通过很简单的JS调用，让IE6-IE9浏览器都支持HTML5中的元素
+支持h5自定义标签的js库
 2.respond.js
 HTML5 respond.js 解决IE6~8的响应式布局问题(自适应@media)
 3.semi-auto-table
@@ -303,14 +304,142 @@ window.setInterval("function", time)------设置一个超时对象，周期=”�
 
 ######################################################################################################
 
+判断是否有重复元素的数组
+
+              nameList = nameList.sort();
+              for(var i = 0; i < nameList.length; i++) {
+                if (nameList[i] == nameList[i + 1]) {
+                  result = false;
+                  break;
+                }
+              }
+（先排序，然后前一个和后一个比较）
+
+判断时间段数组是否存在交叉
+
+var result = true;
+              var startTimeList = [];
+              var endTimeList = [];
+
+              $.each(segments, function (index,item) {
+                startTimeList.push(item.startLocalTime);
+                endTimeList.push(item.endLocalTime);
+              });
+
+              var begin = startTimeList.sort();
+              var over = endTimeList.sort();
+              for(var k=1;k<begin.length;k++){
+                if (begin[k] <= over[k-1]){
+                  result = false;
+                  break;
+                }
+              }
+              return result;
+
+######################################################################################################
+
+jquery的validate，
+要先$form.validate({});
+$target.rules("add", {
+        required: true
+      });
+切$target必需要有name属性
+
+######################################################################################################
+//模态框去掉背景
+    .modal-backdrop {
+      opacity: 0 !important;
+      filter: alpha(opacity=0) !important;
+    }
+//模态框点击背景不消失
+      $(".modal").modal({
+        backdrop: false,
+        show: false
+      });
+
+######################################################################################################
+
+//微信小程序开发流程
+1.注册小程序帐号，进入官网https://mp.weixin.qq.com/debug/wxadoc/dev/index.html
+2.获得注册的AppID
+
+######################################################################################################
+
+js报错收集
+1.Maximum call stack size exceeded(死循环)
 
 
 
 ######################################################################################################
+产品中启动后台，以course-selection为例
+到~/new-porject/backend/course-selection下打包，之后
+进入到
+~/new-porject/backend/course-selection/target文件夹下，将eams-backend-course-selection-5.0.0-M31-SNAPSHOT.tar解压到当前目录下，再进入/new-project/backend/course-selection/target/eams-backend-course-selection-5.0.0-M31-SNAPSHOT目录下，到etc/application.properties问加下修改数据库，之后再执行bin/start.sh进行启动后台。 etc和bin同在eams-backend-course-selection-5.0.0-M31-SNAPSHOT文件夹目录下。
+
 ######################################################################################################
+
+    var modal = (function() {
+      var initDate = function(startDateTimeId,endDateTimeId) {
+        var startDate;
+        var endDate;
+        startDateTimeId="#"+startDateTimeId;
+        endDateTimeId="#"+endDateTimeId;
+        $(startDateTimeId).datetimepicker({
+          format: 'Y-m-d H:m',
+          minDate: 0,
+          onChangeDateTime: function(dp, $input) {
+            startDate = $(startDateTimeId).val();
+          },
+          onClose: function(current_time, $input) {
+            if (startDate > endDate) {
+              $(startDateTimeId).val(endDate);
+              startDate=endDate;
+            }
+          }
+        });
+        $(endDateTimeId).datetimepicker({
+          format: 'Y-m-d H:m',
+          onClose: function(current_time, $input) {
+            endDate = $(endDateTimeId).val();
+            if (startDate > endDate) {
+              $(endDateTimeId).val(startDate);
+              endDate=startDate;
+            }
+          }
+        });
+      };
+      return {
+        initDate: initDate
+      };
+    })();
+//初始化开始时间与结束时间控件
+modal.initDate("startdate","enddate");
+<label>开始时间：</label>
+ <input id="startdate" type="text" placeholder="YYYY-MM-DD HH:MM:SS" />
+ <label>结束时间</label>
+ <input id="enddate" type="text" placeholder="YYYY-MM-DD HH:MM:SS" />
 ######################################################################################################
-######################################################################################################
-######################################################################################################
-######################################################################################################
-######################################################################################################
+
+    //时间格式化工具
+    Date.prototype.format = function (format) {
+      var date = {
+        "M+": this.getMonth() + 1,
+        "d+": this.getDate(),
+        "h+": this.getHours(),
+        "m+": this.getMinutes(),
+        "s+": this.getSeconds(),
+        "q+": Math.floor((this.getMonth() + 3) / 3),
+        "S+": this.getMilliseconds()
+      };
+      if (/(y+)/i.test(format)) {
+        format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+      }
+      for (var k in date) {
+        if (new RegExp("(" + k + ")").test(format)) {
+          format = format.replace(RegExp.$1, RegExp.$1.length == 1
+              ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+        }
+      }
+      return format;
+    };
 ######################################################################################################

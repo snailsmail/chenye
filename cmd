@@ -1,6 +1,13 @@
 sudo apt-get install git subversion silversearcher-ag meld git-all openssh-server openssh-client 
 
 ssh-keygen(安装ssh公钥)（cd .ssh/）
+安装过程中不需要设置密码，
+
+git添加公钥后报错sign_and_send_pubkey: signing failed: agent refused operation的解决办法：
+eval "$(ssh-agent -s)"
+ssh-add
+
+
 ######################################################################
 
 //ubuntu 文件权限(chown chmod)
@@ -158,6 +165,18 @@ startup
 create user ** identified by **;
 grant dba to **;
 
+//删除用户名以及用户名下数据
+drop user XXXX cascade;
+
+//创建用户
+create user chenye identified by 密码;
+
+//授权
+grant dba to chenye;
+
+//查询所有用户
+select username form dba_users;
+
 ######################################################################
 dmp文件的导出和导入
 //数据库数据的导出
@@ -308,6 +327,13 @@ sudo ln -s ~/Tools/node-v6.11.2-linux-x64/bin/vue /usr/local/bin/vue
 cnpm install -g webpack
 sudo ln -s ~/Tools/node-v6.11.2-linux-x64/bin/webpack /usr/local/bin/webpack
 查询版本: webpack -v
+
+######################################################################
+
+pm2是一个进程管理工具，可以使用它来管理node进程，并查看node进程状态，也支持性能监控，进程守护，负载均衡等功能。
+安装pm2
+npm install pm2 -g
+
 
 ######################################################################
 
@@ -483,7 +509,125 @@ postman 是一个 HTTP 通信测试工具，REST API 的练习会用到它。
 
 
 ####################################################
+
+
+//datatable某列隐藏以及显示
+$(document).ready(function() { 
+   var myTable = $('#example').dataTable(); 
+   myTable.column(0).visible(false)//将第一列的数据隐藏
+   myTable.column(1).visible(true)//让第二列的数据显示
+} );
+
+$('tr').find('td:eq(0)').hide();
+
 ####################################################
+Visual Studio Code 开发node
 ####################################################
+
+--------------------数据泵导入----------------------
+1、以sysdba 进入sqlplus
+sqlplus / as sysdba     用户名 sys as sysdba 密码eams
+2、创建用户
+create user shnu170104（用户名） identified by eams（密码）;
+3、赋予用户权限
+grant connect,resource,dba to shnu170104;
+4、退出sysdba
+exit;
+5、以新建用的用户身份进入sqlplus
+sqlplus
+
+6、创建目录
+create directory shnu170104 as 'D:\shnu';
+7、退出当前sqlplus
+exit;
+8、以sysdba 进入sqlplus 并将目录权限赋予新建用户
+grant read, write on directory shnu170104 to shnu170104
+
+9 退出sqlplus
+10、导入
+（退出数据库登录时导入）
+impdp shnu170104/eams directory=shnu170104 dumpfile=shnu0104.dpdmp （导出的数据泵文件名）logfile=shnu170104.log FULL=y remap_schema=eams_JW:shnu170104 （导出数据库登录名：导入数据库登录名）remap_tablespace=users:users（导出数据库表空间：导入数据库表空间）
+有多个不同表空间时的导入：
+impdp shnu170104/eams directory=shnu170104 dumpfile=shnu0104.dpdmp logfile=shnu170104.log FULL=y remap_schema=eams_JW:shnu170104 remap_tablespace=users:users
+
+impdp jdz170822/eams directory=shnu170814 dumpfile=eams20170822.dpdmp FULL=y remap_schema=eams:jdz170822 remap_tablespace=users:users2
+
+要把导入的dpdmp文件放在创建的目录里
+
+
+####################################################
+mongoDb安装
+curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.0.6.tgz    # 下载（版本号可以修改）
+或直接下载
+下载地址：https://www.mongodb.com/download-center#community
+tar -zxvf mongodb-linux-x86_64-3.0.6.tgz                                   # 解压
+
+mv mongodb-linux-x86_64-3.0.6/ /usr/local/mongodb                          # 将解压包拷贝到指定目录
+
+在.bashrc文件中添加export PATH=/usr/local/mongodb/bin:$PATH
+source ~/.bashrc
+
+$ cd /usr/local/mongodb/bin
+
+#$ ./mongod --dbpath=~/hdd/mongodb/data/db 指定mongodb启动的数据库路径 启动
+#sudo ./mongod --dbpath=~/hdd/mongodb/data/db  --fork --logpath=~/hdd/mongodb/data/logs   #常驻 --fork
+或
+sudo gedit mongodb.conf 
+修改掉
+# Where to store the data.
+dbpath=~/hdd/mongodb/data/db
+#where to log
+logpath=~/hdd/mongodb/data/logs
+
+之后可以直接启动mongodb
+$ ./mongod //启动
+$ mongo //进入shell
+
+mongodb远程链接
+ 1、首先修改mongodb的配置文件 让其监听所有外网ip
+
+编辑文件：/etc/mongodb.conf
+
+修改后的内容如下：
+
+    bind_ip = 0.0.0.0
+
+    port = 27017
+
+   auth=true
+
+2、/etc/init.d/mongodb restart
+
+3、连接 
+
+#本地连接
+/usr/local/mongodb/bin/mongo
+
+ 
+#远程连接
+ 
+/usr/local/mongodb/bin/mongo 127.0.0.1/admin -u username -p password
+4、给某个数据库添加用户访问权限
+  db.addUser('user','pwd')
+  db.auth('user','pwd')
+5、删除用户
+db.removeUser('username')
+
+
+1.通过非授权的方式启动mongo
+
+2.创建admin数据库
+
+use admin
+
+3.添加管理员用户
+db.createUser({user:"admin",pwd:"123456",roles:["root"]})
+
+备注：用户名和密码可随意定
+
+4.认证
+
+db.auth("admin", "123456")
+
 
 
