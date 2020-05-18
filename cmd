@@ -26,6 +26,12 @@ sudo dpkg -i dingtalk-2.1.5-latest-amd64.deb
 
 ######################################################################
 
+// 安装scode
+下载地址：https://code.visualstudio.com/docs/?dv=linux64_deb
+sudo dpkg -i xxx.deb
+
+######################################################################
+
 //安装jdk
 下载解压后
 在.bashrc文件中添加
