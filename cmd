@@ -272,7 +272,7 @@ sudo apt upgrade
 //安装node 和 npm
 在官网（ https://nodejs.org）下载最新的LTS版本node，
 在本地解压
-1 sudo ln -s ~/Tools/node-v6.11.2-linux-x64/bin/node /usr/local/bin/node    //软连接node
+1 sudo ln -s ~/Tools/node-v6.11.2-linux-x64/bin/node /usr/local/bin/node    //软连接node 软连接路径必须是绝对路径
 2 sudo ln -s ~/Tools/node-v6.11.2-linux-x64/bin/npm /usr/local/bin/npm      //软连接node
 
 3 node -v 			      //查看版本号
