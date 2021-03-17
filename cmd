@@ -41,7 +41,7 @@ export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
 export PATH=${JAVA_HOME}/bin:$PATH
 
 测试
-jdk -version
+java -version
 ######################################################################
 
 //安装maven
